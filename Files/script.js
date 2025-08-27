@@ -61,39 +61,25 @@ const inputLoanAmount = document.querySelector('.form__input--loan-amount');
 const inputCloseUsername = document.querySelector('.form__input--user');
 const inputClosePin = document.querySelector('.form__input--pin');
 
-/////////////////////////////////////////////////
-/////////////////////////////////////////////////
-// LECTURES
+const displayMovements = function(movements) {
 
-const currencies = new Map([
-  ['USD', 'United States dollar'],
-  ['EUR', 'Euro'],
-  ['GBP', 'Pound sterling'],
-]);
+  //Empty the container so we don't override any values
+  containerMovements.innerHTML = '';
 
-//Positive numbers are deposits, negative numbers are withdrawals
-const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
+  movements.forEach(function(mov, i){
 
-/////////////////////////////////////////////////
+    const type = mov > 0 ? 'deposit' : 'withdrawal';
 
-//METHODS 
-movements.forEach(function (mov, i, arr) {
-  if (mov > 0) {
-    console.log(`Movement ${i + 1}: Deposited ${mov}`);
-  } else {
-    console.log(`Movement ${i + 1}: Withdrew ${Math.abs(mov)}`);
-  }
-});
+    const html = `
+      <div class="movements__row">
+        <div class="movements__type movements__type--${type}">${i + 1} ${type}</div>
+        <div class="movements__value">${mov}</div>
+      </div>
+    `;
 
-//MAPS
-currencies.forEach(function (value, key, map) {
-  console.log(`Currency: ${key}, Country: ${value}`);
-});
+    containerMovements.insertAdjacentHTML('afterbegin', html);
+  });
+}
 
-//SETS
-const currenciesUnique = new Set(['USD', 'GBP', 'USD', 'EUR', 'EUR']);
-console.log(currenciesUnique);
+displayMovements(account1.movements);
 
-currenciesUnique.forEach(function (value, _, map) {
-  console.log(`Currency: ${value}`);
-});
