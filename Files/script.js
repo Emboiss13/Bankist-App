@@ -71,6 +71,29 @@ const currencies = new Map([
   ['GBP', 'Pound sterling'],
 ]);
 
+//Positive numbers are deposits, negative numbers are withdrawals
 const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
 
 /////////////////////////////////////////////////
+
+//METHODS 
+movements.forEach(function (mov, i, arr) {
+  if (mov > 0) {
+    console.log(`Movement ${i + 1}: Deposited ${mov}`);
+  } else {
+    console.log(`Movement ${i + 1}: Withdrew ${Math.abs(mov)}`);
+  }
+});
+
+//MAPS
+currencies.forEach(function (value, key, map) {
+  console.log(`Currency: ${key}, Country: ${value}`);
+});
+
+//SETS
+const currenciesUnique = new Set(['USD', 'GBP', 'USD', 'EUR', 'EUR']);
+console.log(currenciesUnique);
+
+currenciesUnique.forEach(function (value, _, map) {
+  console.log(`Currency: ${value}`);
+});
