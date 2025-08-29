@@ -7,6 +7,12 @@
 //-------------------------------------------------
 // DATA
 //-------------------------------------------------
+const account0 = {
+  owner: 'Giuliana E',
+  movements: [2000, 4500, -400, 30000, -650, -130, 70, 1300],
+  interestRate: 2.4, // %
+  pin: 0o000,
+};
 const account1 = {
   owner: 'Jonas Schmedtmann',
   movements: [200, 450, -400, 3000, -650, -130, 70, 1300],
@@ -35,7 +41,7 @@ const account4 = {
   pin: 4444,
 };
 
-const accounts = [account1, account2, account3, account4];
+const accounts = [account0, account1, account2, account3, account4];
 
 //-------------------------------------------------
 // HTML ELEMENTS
@@ -166,8 +172,9 @@ btnLogin.addEventListener('click', function (e) {
 
     // Update UI
     updateUI(currentAccount);
+  } else{
+    alert('Login failed. Please check your username and PIN.');
   }
-  //console.debug('Login successful');
 });
 
 btnTransfer.addEventListener('click', function (e) {
@@ -196,7 +203,7 @@ btnTransfer.addEventListener('click', function (e) {
     updateUI(currentAccount);
   } else {
     // Display error message
-    console.error('Transfer not valid. You have insufficient funds.');
+    alert('Transfer not valid. You have insufficient funds.');
   }
 });
 
