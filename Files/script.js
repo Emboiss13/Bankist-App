@@ -1,11 +1,12 @@
 'use strict';
 
-/////////////////////////////////////////////////
-/////////////////////////////////////////////////
+//-------------------------------------------------
 // BANKIST APP
+//-------------------------------------------------
 
-/////////////////////////////////////////////////
-// Data
+//-------------------------------------------------
+// DATA
+//-------------------------------------------------
 const account1 = {
   owner: 'Jonas Schmedtmann',
   movements: [200, 450, -400, 3000, -650, -130, 70, 1300],
@@ -36,8 +37,9 @@ const account4 = {
 
 const accounts = [account1, account2, account3, account4];
 
-/////////////////////////////////////////////////
-// Elements
+//-------------------------------------------------
+// HTML ELEMENTS
+//-------------------------------------------------
 const labelWelcome = document.querySelector('.welcome');
 const labelDate = document.querySelector('.date');
 const labelBalance = document.querySelector('.balance__value');
@@ -63,8 +65,9 @@ const inputLoanAmount = document.querySelector('.form__input--loan-amount');
 const inputCloseUsername = document.querySelector('.form__input--user');
 const inputClosePin = document.querySelector('.form__input--pin');
 
-/////////////////////////////////////////////////
-// Functions
+//-------------------------------------------------
+// METHODS
+//-------------------------------------------------
 
 const displayMovements = function (movements, sort = false) {
   containerMovements.innerHTML = '';
@@ -136,8 +139,9 @@ const updateUI = function (acc) {
   calcDisplaySummary(acc);
 };
 
-///////////////////////////////////////
-// Event handlers
+//-------------------------------------------------
+// EVENT HANDLERS
+//-------------------------------------------------
 let currentAccount;
 
 btnLogin.addEventListener('click', function (e) {
@@ -147,7 +151,7 @@ btnLogin.addEventListener('click', function (e) {
   currentAccount = accounts.find(
     acc => acc.username === inputLoginUsername.value
   );
-  console.log(currentAccount);
+  //console.log(currentAccount);
 
   if (currentAccount?.pin === Number(inputLoginPin.value)) {
     // Display UI and message
@@ -163,6 +167,7 @@ btnLogin.addEventListener('click', function (e) {
     // Update UI
     updateUI(currentAccount);
   }
+  console.log('Login successful');
 });
 
 btnTransfer.addEventListener('click', function (e) {
@@ -213,7 +218,7 @@ btnClose.addEventListener('click', function (e) {
     const index = accounts.findIndex(
       acc => acc.username === currentAccount.username
     );
-    console.log(index);
+    //console.log(index);
     // .indexOf(23)
 
     // Delete account
@@ -232,59 +237,3 @@ btnSort.addEventListener('click', function (e) {
   displayMovements(currentAccount.movements, !sorted);
   sorted = !sorted;
 });
-
-///////////////////////////////////////
-// Array Methods Practice
-
-// 1.
-const bankDepositSum = accounts
-  .flatMap(acc => acc.movements)
-  .filter(mov => mov > 0)
-  .reduce((sum, cur) => sum + cur, 0);
-
-console.log(bankDepositSum);
-
-const numDeposits1000 = accounts
-  .flatMap(acc => acc.movements)
-  .reduce((count, cur) => (cur >= 1000 ? ++count : count), 0);
-
-console.log(numDeposits1000);
-
-// Prefixed ++ oeprator
-let a = 10;
-console.log(++a);
-console.log(a);
-
-// 3.
-const { deposits, withdrawals } = accounts
-  .flatMap(acc => acc.movements)
-  .reduce(
-    (sums, cur) => {
-      // cur > 0 ? (sums.deposits += cur) : (sums.withdrawals += cur);
-      sums[cur > 0 ? 'deposits' : 'withdrawals'] += cur;
-      return sums;
-    },
-    { deposits: 0, withdrawals: 0 }
-  );
-
-console.log(deposits, withdrawals);
-
-// 4.
-// this is a nice title -> This Is a Nice Title
-const convertTitleCase = function (title) {
-  const capitzalize = str => str[0].toUpperCase() + str.slice(1);
-
-  const exceptions = ['a', 'an', 'and', 'the', 'but', 'or', 'on', 'in', 'with'];
-
-  const titleCase = title
-    .toLowerCase()
-    .split(' ')
-    .map(word => (exceptions.includes(word) ? word : capitzalize(word)))
-    .join(' ');
-
-  return capitzalize(titleCase);
-};
-
-console.log(convertTitleCase('this is a nice title'));
-console.log(convertTitleCase('this is a LONG title but not too long'));
-console.log(convertTitleCase('and here is another title with an EXAMPLE'));
