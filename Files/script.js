@@ -61,8 +61,8 @@ const inputLoanAmount = document.querySelector('.form__input--loan-amount');
 const inputCloseUsername = document.querySelector('.form__input--user');
 const inputClosePin = document.querySelector('.form__input--pin');
 
+//METHODS
 const displayMovements = function(movements) {
-
   //Empty the container so we don't override any values
   containerMovements.innerHTML = '';
 
@@ -81,5 +81,56 @@ const displayMovements = function(movements) {
   });
 }
 
-displayMovements(account1.movements);
+const calcDisplayBalance = function(movements) {
+  const balance = movements.reduce((acc, mov) => acc + mov, 0);
+  labelBalance.textContent = `${balance} €`;
+}
 
+const calcDisplaySummary = function(movements, interestRate) {
+  const incomes = movements.filter(mov => mov > 0).reduce((acc, mov) => acc + mov, 0);
+  const out = movements.filter(mov => mov < 0).reduce((acc, mov) => acc + mov, 0);
+  const interest = movements.filter(mov => mov > 0).map(mov => (mov * interestRate) / 100).reduce((acc, mov) => acc + mov, 0);
+
+  labelSumIn.textContent = `${incomes} €`;
+  labelSumOut.textContent = `${Math.abs(out)} €`;
+  labelSumInterest.textContent = `${interest} €`;
+};
+
+//Compute the username of a user based on their full name
+const createUsernames = function(accounts) {
+  accounts.forEach(function(acc) {
+    acc.username = acc.owner
+      .toLowerCase()
+      .split(' ')
+      .map(name => name[0])
+      .join('');
+  });
+};
+
+
+
+//--------------Lectures---------------------
+
+const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
+
+
+
+const deposits = movements.filter(mov => mov > 0);
+
+const withdrawals = movements.filter(mov => mov < 0);
+
+//acc = snowball that keeps growing
+const balance = movements.reduce(function(accummulator, currentVal, i, arr){
+  return accummulator + currentVal;
+}, 0);
+
+const eurToUsd = 1.1;
+
+//This is the functional paradigm of doing this
+const movementsUSD = movements.map(mov => mov * eurToUsd);
+
+const movementsDescriptions = movements.map((mov, i) => {
+  return `Movement ${i + 1}: You ${mov > 0 ? 'deposited' : 'withdrew'} ${Math.abs(mov)}`;
+});
+
+//--------------------------------------------
