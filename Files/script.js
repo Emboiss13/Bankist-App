@@ -167,29 +167,36 @@ btnLogin.addEventListener('click', function (e) {
     // Update UI
     updateUI(currentAccount);
   }
-  console.log('Login successful');
+  //console.debug('Login successful');
 });
 
 btnTransfer.addEventListener('click', function (e) {
+  // Prevent form from submitting
   e.preventDefault();
   const amount = Number(inputTransferAmount.value);
-  const receiverAcc = accounts.find(
+  const receiverAccount = accounts.find(
     acc => acc.username === inputTransferTo.value
   );
   inputTransferAmount.value = inputTransferTo.value = '';
 
+  // Check if transfer is valid
+  // We make sure that the user balance is less than the transfer
+  // Improvement display an error
   if (
     amount > 0 &&
-    receiverAcc &&
+    receiverAccount &&
     currentAccount.balance >= amount &&
-    receiverAcc?.username !== currentAccount.username
+    receiverAccount?.username !== currentAccount.username
   ) {
     // Doing the transfer
     currentAccount.movements.push(-amount);
-    receiverAcc.movements.push(amount);
+    receiverAccount.movements.push(amount);
 
     // Update UI
     updateUI(currentAccount);
+  } else {
+    // Display error message
+    console.error('Transfer not valid. You have insufficient funds.');
   }
 });
 
