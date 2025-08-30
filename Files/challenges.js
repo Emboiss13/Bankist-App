@@ -1,7 +1,7 @@
 'use strict';
 
 ///////////////////////////////////////
-// Coding Challenge #4
+// Coding Challenge #5
 
 /* 
 Julia and Kate are still studying dogs, and this time they are studying if dogs are eating too much or too little.
@@ -123,3 +123,33 @@ console.log(`Exercise 3 PT2: Owners of dogs who eat too little: ${ownersEatTooLi
 //like this: "Matilda and Alice and Bob's dogs eat too much!"
 console.log(`Exercise 4 PT1: ${returnResponseTooMuch}`);
 console.log(`Exercise 4 PT2: ${returnResponseTooLittle}`);
+
+
+//Simpler version of 3 and 4 
+const ownersTooMuch = dogs
+    .filter(dog => dog.curFood > dog.recommendedFood)
+    .flatMap(dog => dog.owners);
+
+const ownersTooLittle = dogs
+    .filter(dog => dog.curFood < dog.recommendedFood)
+    .flatMap(dog => dog.owners);
+
+console.log(`Exercise 3 and 4 Simpler version PT1: ${ownersTooMuch.join(' and ')}'s dogs eat too much!`);
+console.log(`Exercise 3 and 4 Simpler version PT2: ${ownersTooLittle.join(' and ')}'s dogs eat too little!`);
+
+//5) Log to the console whether there is any dog eating EXACTLY the amount of food that is recommended (just true or false)
+console.log(dogs.some(dog => dog.curFood === dog.recFood));
+
+//6) Log to the console whether there is any dog eating an OKAY amount of food (just true or false)
+// current > (recommended * 0.90) && current < (recommended * 1.10)
+const checkEatingOkay = dog =>
+  dog.curFood > dog.recFood * 0.9 && dog.curFood < dog.recFood * 1.1;
+
+console.log(dogs.some(checkEatingOkay));
+
+//7) Create an array of all the dogs that are eating an OKAY amount of food
+console.log(dogs.filter(checkEatingOkay));
+
+//8) Sort the dogs by recommended food portion in an ascending order [1,2,3]
+const dogsSorted = dogs.slice().sort((a, b) => a.recFood - b.recFood);
+console.log(dogsSorted);
