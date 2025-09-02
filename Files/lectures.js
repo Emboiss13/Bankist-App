@@ -25,5 +25,13 @@ console.log(future.toISOString());
 //Time stamps
 console.log(future.getTime()); //2142256980000
 
-//So now we can use this
+//So now we can use these milliseconds
 console.log(new Date(2142256980000)); //2023-11-19T15:23:00.000Z
+
+//1000 milliseconds = 1 second
+//60 seconds = 1 minute
+//60 minutes = 1 hour
+//24 hours = 1 day
+const calcDaysPassed = (date1, date2) => Math.abs(date2 - date1) / (1000 * 60 * 60 * 24);
+
+console.log(calcDaysPassed(new Date(2037, 10, 19), new Date(2037, 10, 31))); // 12
