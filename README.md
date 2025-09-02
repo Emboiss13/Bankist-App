@@ -1,4 +1,5 @@
 # 🏦 Bankist App  
+<img width="2982" height="1648" alt="image" src="https://github.com/user-attachments/assets/09508fa5-e8cb-469e-b6ac-c37918c8143e" />
 
 A **minimalist online banking application** built as part of my JavaScript course project on Udemy. The project is designed to practice working with **arrays**, **objects**, and **UI updates** in real-world scenarios.  
 
